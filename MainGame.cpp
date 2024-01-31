@@ -1,35 +1,59 @@
 #include "MainGame.h"
 
 
-int main() {
-	StartGame();
-}
-
-void StartGame()
+class MainGame
 {
-	init();
+	void Start();
+	void gotoXY(int x, int y);
+	void MainInit();
+	void MainScreen();
+	//void StartInit();
+	int MenuSelect();
+};
+
+int main() {
+	menuNum = MAIN;
+	MainInit(menuNum);
 	MenuSelect();
 }
 
-void init() {
+void Start()
+{
+	cout << "\n시작화면 이동함";
+	
+}
+
+void Screen(int statusnum) {
+	switch (statusnum)
+	{
+		case MAIN:
+			cout << setw(68) << "。.。:+* ゜ ゜゜ *+:。.。:+* ゜ ゜゜ *+:。.。.。:+* ゜ ゜゜*+:。。.。:\n";
+			cout << setw(68) << "                            ▄▀▄     ▄▀▄                             \n";
+			cout << setw(68) << "                           ▄█░░▀▀▀▀▀░░█▄                            \n";
+			cout << setw(68) << "                       ▄▄  █░░░░░░░░░░░█  ▄▄                        \n";
+			cout << setw(68) << "                      █▄▄█ █░░▀░░┬░░▀░░█ █▄▄█                       \n";
+			cout << setw(68) << "。.。:+* ゜ ゜゜ *+:。.。:+* ゜ ゜゜ *+:。.。.。:+* ゜ ゜゜*+:。。.。:\n"
+				<< endl;
+
+			cout << setw(68) << "    ####     ##      #####           ####     ##     #    #   ######\n";
+			cout << setw(68) << "   ##  ##   #  #       #            ##  ##   #  #    ##  ##   #     \n";
+			cout << setw(68) << "  ##       #    #      #           ##       #    #   # ## #   #     \n";
+			cout << setw(68) << "  ##       ######      #           ##  ###  ######   # ## #   ##### \n";
+			cout << setw(68) << "  ##       #    #      #           ##   ##  #    #   #    #   #     \n";
+			cout << setw(68) << "   ##  ##  #    #      #            ## ###  #    #   #    #   #     \n";
+			cout << setw(68) << "    ####   #    #      #             ### #  #    #   #    #   ######\n\n";
+			cout << "。.。:+* ゜ ゜゜ *+:。.。:+* ゜ ゜゜ *+:。.。.。:+* ゜ ゜゜*+:。。.。:\n\n";
+			menuNum++;
+			break;
+
+		case START:
+			break;
+	}
+}
+void MainInit(int currentstatus) {
 	SetWindowTextW(GetConsoleWindow(), L"고양이 키우기");
 	system("mode con cols=70 lines=23");
-	cout << setw(68) << "。.。:+* ゜ ゜゜ *+:。.。:+* ゜ ゜゜ *+:。.。.。:+* ゜ ゜゜*+:。。.。:\n";
-	cout << setw(68) << "                            ▄▀▄     ▄▀▄                             \n";
-	cout << setw(68) << "                           ▄█░░▀▀▀▀▀░░█▄                            \n";
-	cout << setw(68) << "                       ▄▄  █░░░░░░░░░░░█  ▄▄                        \n";
-	cout << setw(68) << "                      █▄▄█ █░░▀░░┬░░▀░░█ █▄▄█                       \n";
-	cout << setw(68) << "。.。:+* ゜ ゜゜ *+:。.。:+* ゜ ゜゜ *+:。.。.。:+* ゜ ゜゜*+:。。.。:\n"
-		<< endl;
-
-	cout << setw(68) << "    ####     ##      #####           ####     ##     #    #   ######\n";
-	cout << setw(68) << "   ##  ##   #  #       #            ##  ##   #  #    ##  ##   #     \n";
-	cout << setw(68) << "  ##       #    #      #           ##       #    #   # ## #   #     \n";
-	cout << setw(68) << "  ##       ######      #           ##  ###  ######   # ## #   ##### \n";
-	cout << setw(68) << "  ##       #    #      #           ##   ##  #    #   #    #   #     \n";
-	cout << setw(68) << "   ##  ##  #    #      #            ## ###  #    #   #    #   #     \n";
-	cout << setw(68) << "    ####   #    #      #             ### #  #    #   #    #   ######\n\n";
-	cout << "。.。:+* ゜ ゜゜ *+:。.。:+* ゜ ゜゜ *+:。.。.。:+* ゜ ゜゜*+:。。.。:\n\n";
+	Screen(currentstatus);
 }
 
 void gotoXY(int x, int y)
@@ -71,6 +95,7 @@ int MenuSelect() {
 				gotoXY(x-2, y);
 				cout << "  ";
 				gotoXY(x-2, --y);
+				menuNum--;
 				cout << "▶";
 			}
 			break;
@@ -79,12 +104,29 @@ int MenuSelect() {
 			gotoXY(x-2, y);
 			cout << "  ";
 			gotoXY(x-2, ++y);
+			menuNum++;
 			cout << "▶";
 			}
 			break;
 		case ENTER:
 			system("cls");
-			break;
+			switch (menuNum)
+			{
+			case START:
+				Start();
+				break;
+			case LOAD:
+				cout << "불러오기는 아직";
+				break;
+			case QUIT:
+				return 0;
+			}
 		}
 	}
 }
+
+class StartGame : public MainGame
+{
+public:
+
+};
